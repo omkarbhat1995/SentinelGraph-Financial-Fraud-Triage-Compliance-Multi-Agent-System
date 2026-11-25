@@ -1,0 +1,65 @@
+{
+  "policy_version": "2026.1",
+  "rules": [
+    {
+      "policy_id": "POL-VEL-001",
+      "category": "VELOCITY",
+      "title": "High 24-Hour Transaction Velocity",
+      "description": "Account executes 5 or more outbound transactions within a rolling 24-hour window.",
+      "severity": "HIGH",
+      "score_weight": 25,
+      "recommended_outcome": "STEP_UP_MFA",
+      "sar_trigger": false
+    },
+    {
+      "policy_id": "POL-AMT-002",
+      "category": "ANOMALY_ZSCORE",
+      "title": "Severe Amount Z-Score Deviation",
+      "description": "Transaction amount exceeds 3.0 standard deviations above the customer's 90-day baseline mean.",
+      "severity": "HIGH",
+      "score_weight": 30,
+      "recommended_outcome": "STEP_UP_MFA",
+      "sar_trigger": false
+    },
+    {
+      "policy_id": "POL-GEO-003",
+      "category": "IMPOSSIBLE_TRAVEL",
+      "title": "Impossible Travel Velocity Between Transactions",
+      "description": "Implied travel speed between consecutive geolocated events exceeds 800 km/h.",
+      "severity": "CRITICAL",
+      "score_weight": 40,
+      "recommended_outcome": "ESCALATE_SAR",
+      "sar_trigger": true
+    },
+    {
+      "policy_id": "POL-DEV-004",
+      "category": "DEVICE_RISK",
+      "title": "Unrecognized High-Risk Device or Proxy",
+      "description": "Transaction originates from a new device fingerprint or anonymizing VPN/TOR exit node.",
+      "severity": "MEDIUM",
+      "score_weight": 20,
+      "recommended_outcome": "STEP_UP_MFA",
+      "sar_trigger": false
+    },
+    {
+      "policy_id": "POL-AML-005",
+      "category": "STRUCTURING_AML",
+      "title": "Potential Structuring / Smurfing Pattern",
+      "description": "Multiple sub-threshold or round-dollar transfers clustered to evade reporting thresholds.",
+      "severity": "CRITICAL",
+      "score_weight": 45,
+      "recommended_outcome": "ESCALATE_SAR",
+      "sar_trigger": true
+    },
+    {
+      "policy_id": "POL-BEN-006",
+      "category": "BENIGN_DRIFT",
+      "title": "Verified Benign Seasonal or Recurring Spend",
+      "description": "Minor variance within normal baseline bounds on a trusted device and consistent geography.",
+      "severity": "LOW",
+      "score_weight": -15,
+      "recommended_outcome": "AUTO_CLOSE",
+      "sar_trigger": false
+    }
+  ]
+}
