@@ -1,0 +1,9 @@
+langgraph>=0.2.60
+langgraph-checkpoint-sqlite>=2.0.0
+langchain-core>=0.3.30
+langchain-google-genai>=2.0.8
+langchain-groq>=0.2.2
+pydantic>=2.10.0
+python-dotenv>=1.0.1
+streamlit>=1.41.0
+pytest>=8.3.0
