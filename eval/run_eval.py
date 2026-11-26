@@ -12,6 +12,7 @@ from unittest.mock import patch
 from dotenv import load_dotenv
 
 load_dotenv(override=True)
+from pathlib import Path
 
 ROOT_DIR = Path(__file__).resolve().parent.parent
 if str(ROOT_DIR) not in sys.path:
@@ -21,8 +22,16 @@ from src.graph import resume_hitl_escalation, run_alert_triage
 from src.scorer import DEFAULT_POLICY_PATH
 from src.setup_db import init_database
 
-DEFAULT_GOLDEN_PATH = Path("eval/golden_cases.json")
 
+DEFAULT_GOLDEN_PATH = ROOT_DIR / "eval" / "golden_cases.json"
+DEFAULT_POLICY_PATH = ROOT_DIR / "data" / "aml_policy_rules.json"
+
+def _resolve_repo_path(raw_path: str | Path) -> Path:
+    p = Path(raw_path)
+    if p.is_absolute() or p.exists():
+        return p
+    candidate = ROOT_DIR / p
+    return candidate if candidate.exists() else p
 
 def _deterministic_only_failover(system_prompt: str, compact_payload: Dict[str, Any], schema: Any):
     raise RuntimeError("Offline deterministic evaluation mode")
@@ -131,8 +140,8 @@ def main() -> int:
     args = parser.parse_args()
 
     report = evaluate_golden_suite(
-        golden_path=Path(args.golden),
-        policy_path=Path(args.policy),
+        golden_path=_resolve_repo_path(args.golden),
+        policy_path=_resolve_repo_path(args.policy),
         resume_escalations=not args.no_resume,
     )
 
