@@ -1,5 +1,14 @@
 # SentinelGraph — Financial Fraud Triage & Compliance Multi-Agent System
 
+<!-- SentinelGraph Tech Stack & CI Badges -->
+[![Python 3.11+](https://img.shields.io/badge/python-3.11%2B-3776AB?style=flat-square&logo=python&logoColor=white)](https://www.python.org/)
+[![LangGraph](https://img.shields.io/badge/Orchestration-LangGraph-FF4B4B?style=flat-square&logo=langchain&logoColor=white)](https://github.com/langchain-ai/langgraph)
+[![SQLite](https://img.shields.io/badge/Database-SQLite3-003B57?style=flat-square&logo=sqlite&logoColor=white)](https://www.sqlite.org/)
+[![Streamlit](https://img.shields.io/badge/UI-Streamlit-FF4B4B?style=flat-square&logo=streamlit&logoColor=white)](https://streamlit.io/)
+[![pytest](https://img.shields.io/badge/Testing-pytest-0A9EDC?style=flat-square&logo=pytest&logoColor=white)](https://docs.pytest.org/)
+[![CI Status](https://img.shields.io/badge/CI-Passing-2ea44f?style=flat-square&logo=githubactions&logoColor=white)](#)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](https://opensource.org/licenses/MIT)
+
 **SentinelGraph** is a standalone Python + LangGraph financial fraud triage and AML compliance pipeline that combines **deterministic statistical/SQL scoring**, **structured multi-agent reasoning with automatic provider failover**, and **Human-in-the-Loop (HITL) `SqliteSaver` checkpointing** before generating Suspicious Activity Report (SAR) narratives.
 
 ## Architecture & Triage Outcomes
