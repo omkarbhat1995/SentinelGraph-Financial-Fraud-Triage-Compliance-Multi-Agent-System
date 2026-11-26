@@ -6,7 +6,7 @@
 [![SQLite](https://img.shields.io/badge/Database-SQLite3-003B57?style=flat-square&logo=sqlite&logoColor=white)](https://www.sqlite.org/)
 [![Streamlit](https://img.shields.io/badge/UI-Streamlit-FF4B4B?style=flat-square&logo=streamlit&logoColor=white)](https://streamlit.io/)
 [![pytest](https://img.shields.io/badge/Testing-pytest-0A9EDC?style=flat-square&logo=pytest&logoColor=white)](https://docs.pytest.org/)
-[![SentinelGraph CI](https://github.com/USER/REPO/actions/workflows/test.yaml/badge.svg)](https://github.com/omkarbhat1995/SentinelGraph-Financial-Fraud-Triage-Compliance-Multi-Agent-System/actions/workflows/test.yaml)
+[![SentinelGraph CI](https://github.com/omkarbhat1995/SentinelGraph-Financial-Fraud-Triage-Compliance-Multi-Agent-System/actions/workflows/test.yaml/badge.svg)](https://github.com/omkarbhat1995/SentinelGraph-Financial-Fraud-Triage-Compliance-Multi-Agent-System/actions/workflows/test.yaml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](https://opensource.org/licenses/MIT)
 
 **SentinelGraph** is a standalone Python + LangGraph financial fraud triage and AML compliance pipeline that combines **deterministic statistical/SQL scoring**, **structured multi-agent reasoning with automatic provider failover**, and **Human-in-the-Loop (HITL) `SqliteSaver` checkpointing** before generating Suspicious Activity Report (SAR) narratives.
