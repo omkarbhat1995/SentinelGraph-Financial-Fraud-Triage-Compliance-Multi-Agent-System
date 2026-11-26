@@ -6,6 +6,7 @@ import sqlite3
 from pathlib import Path
 
 from dotenv import load_dotenv
+from contextlib import closing
 
 load_dotenv(override=True)
 
@@ -206,7 +207,7 @@ def init_database(db_path: Path = DEFAULT_DB_PATH, policy_path: Path = DEFAULT_P
     policy_data = validate_policy_rules(policy_path)
     db_path.parent.mkdir(parents=True, exist_ok=True)
 
-    with sqlite3.connect(db_path) as conn:
+    with closing(sqlite3.connect(db_path)) as conn:
         conn.executescript(SCHEMA_SQL)
         conn.executemany(
             """
