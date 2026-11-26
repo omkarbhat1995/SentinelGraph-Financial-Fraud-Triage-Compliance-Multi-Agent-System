@@ -10,6 +10,9 @@ from dotenv import load_dotenv
 from langgraph.checkpoint.sqlite import SqliteSaver
 from langgraph.graph import END, START, StateGraph
 
+from contextlib import closing
+from datetime import datetime, timezone
+
 from src.nodes import generate_sar_node, score_and_context_node, triage_agent_node
 from src.scorer import DEFAULT_DB_PATH, DEFAULT_POLICY_PATH
 
@@ -35,6 +38,24 @@ def _route_after_triage(state: SentinelGraphState) -> Literal["generate_sar", "_
     if state.get("final_outcome") == "ESCALATE_SAR":
         return "generate_sar"
     return END
+
+def _sync_hitl_decision_to_db(
+    db_path: Path,
+    alert_id: str,
+    final_outcome: str,
+    analyst_decision: str,
+) -> None:
+    updated_at = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+    with closing(sqlite3.connect(db_path)) as conn:
+        conn.execute(
+            """
+            UPDATE triage_decisions
+            SET final_outcome = ?, analyst_decision = ?, updated_at_utc = ?
+            WHERE alert_id = ?
+            """,
+            (final_outcome, analyst_decision, updated_at, alert_id),
+        )
+        conn.commit()
 
 
 def build_state_graph() -> StateGraph:
@@ -123,14 +144,30 @@ def resume_hitl_escalation(
     config = {"configurable": {"thread_id": thread_id}}
 
     with open_sentinel_graph(db_path=db_path, policy_path=policy_path) as (app, _):
+        current_values = dict(app.get_state(config).values or {})
+        resolved_outcome = override_outcome or current_values.get("final_outcome") or "ESCALATE_SAR"
+        alert_id = current_values.get("alert_id")
+
         state_update: Dict[str, Any] = {
             "analyst_decision": analyst_decision,
             "analyst_notes": analyst_notes or "",
+            "final_outcome": resolved_outcome,
         }
-        if override_outcome is not None:
-            state_update["final_outcome"] = override_outcome
 
         app.update_state(config, state_update, as_node="triage_agent")
-        app.invoke(None, config=config)
+        if alert_id:
+            _sync_hitl_decision_to_db(db_path, alert_id, resolved_outcome, analyst_decision)
+
+        if resolved_outcome == "ESCALATE_SAR":
+            app.invoke(None, config=config)
+
         snapshot = app.get_state(config)
-        return dict(snapshot.values)
+        final_values = dict(snapshot.values)
+        if alert_id:
+            _sync_hitl_decision_to_db(
+                db_path,
+                alert_id,
+                final_values.get("final_outcome", resolved_outcome),
+                final_values.get("analyst_decision", analyst_decision),
+            )
+        return final_values

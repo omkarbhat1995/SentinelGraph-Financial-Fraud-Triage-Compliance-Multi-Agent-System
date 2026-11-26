@@ -1,0 +1,85 @@
+{
+  "suite_version": "2026.1",
+  "cases": [
+    {
+      "case_id": "GC-01",
+      "alert_id": "ALT-1001",
+      "expected_outcome": "AUTO_CLOSE",
+      "expected_paused_for_hitl": false,
+      "required_policies": ["POL-BEN-006"],
+      "required_signal_ids": ["SIG-BEN-TX-9001"]
+    },
+    {
+      "case_id": "GC-02",
+      "alert_id": "ALT-1002",
+      "expected_outcome": "AUTO_CLOSE",
+      "expected_paused_for_hitl": false,
+      "required_policies": ["POL-BEN-006"],
+      "required_signal_ids": ["SIG-BEN-TX-9002"]
+    },
+    {
+      "case_id": "GC-03",
+      "alert_id": "ALT-1003",
+      "expected_outcome": "STEP_UP_MFA",
+      "expected_paused_for_hitl": false,
+      "required_policies": ["POL-VEL-001"],
+      "required_signal_ids": ["SIG-VEL-TX-9003"]
+    },
+    {
+      "case_id": "GC-04",
+      "alert_id": "ALT-1004",
+      "expected_outcome": "STEP_UP_MFA",
+      "expected_paused_for_hitl": false,
+      "required_policies": ["POL-DEV-004"],
+      "required_signal_ids": ["SIG-DEV-TX-9004"]
+    },
+    {
+      "case_id": "GC-05",
+      "alert_id": "ALT-1005",
+      "expected_outcome": "ESCALATE_SAR",
+      "expected_paused_for_hitl": true,
+      "required_policies": ["POL-GEO-003"],
+      "required_signal_ids": ["SIG-GEO-TX-9005"]
+    },
+    {
+      "case_id": "GC-06",
+      "alert_id": "ALT-1006",
+      "expected_outcome": "ESCALATE_SAR",
+      "expected_paused_for_hitl": true,
+      "required_policies": ["POL-AML-005"],
+      "required_signal_ids": ["SIG-AML-TX-9006"]
+    },
+    {
+      "case_id": "GC-07",
+      "alert_id": "ALT-1007",
+      "expected_outcome": "AUTO_CLOSE",
+      "expected_paused_for_hitl": false,
+      "required_policies": ["POL-BEN-006"],
+      "required_signal_ids": ["SIG-BEN-TX-9007"]
+    },
+    {
+      "case_id": "GC-08",
+      "alert_id": "ALT-1008",
+      "expected_outcome": "STEP_UP_MFA",
+      "expected_paused_for_hitl": false,
+      "required_policies": ["POL-AMT-002", "POL-DEV-004"],
+      "required_signal_ids": ["SIG-AMT-TX-9008", "SIG-DEV-TX-9008"]
+    },
+    {
+      "case_id": "GC-09",
+      "alert_id": "ALT-1009",
+      "expected_outcome": "ESCALATE_SAR",
+      "expected_paused_for_hitl": true,
+      "required_policies": ["POL-VEL-001", "POL-AMT-002", "POL-GEO-003", "POL-DEV-004"],
+      "required_signal_ids": ["SIG-VEL-TX-9009", "SIG-AMT-TX-9009", "SIG-GEO-TX-9009", "SIG-DEV-TX-9009"]
+    },
+    {
+      "case_id": "GC-10",
+      "alert_id": "ALT-1010",
+      "expected_outcome": "AUTO_CLOSE",
+      "expected_paused_for_hitl": false,
+      "required_policies": ["POL-BEN-006"],
+      "required_signal_ids": ["SIG-BEN-TX-9010"]
+    }
+  ]
+}
